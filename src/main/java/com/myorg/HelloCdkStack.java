@@ -1,24 +1,20 @@
 package com.myorg;
 
-import software.constructs.Construct;
-import software.amazon.awscdk.Stack;
-import software.amazon.awscdk.StackProps;
-// import software.amazon.awscdk.Duration;
-// import software.amazon.awscdk.services.sqs.Queue;
+import software.amazon.awscdk.*;
+import software.amazon.awscdk.services.s3.Bucket;
 
 public class HelloCdkStack extends Stack {
-    public HelloCdkStack(final Construct scope, final String id) {
+    public HelloCdkStack(final App scope, final String id) {
         this(scope, id, null);
     }
 
-    public HelloCdkStack(final Construct scope, final String id, final StackProps props) {
+    public HelloCdkStack(final App scope, final String id, final StackProps props) {
         super(scope, id, props);
 
-        // The code that defines your stack goes here
-
-        // example resource
-        // final Queue queue = Queue.Builder.create(this, "HelloCdkQueue")
-        //         .visibilityTimeout(Duration.seconds(300))
-        //         .build();
+        Bucket.Builder.create(this, "MyFirstBucket")
+                .versioned(true)
+                .removalPolicy(RemovalPolicy.DESTROY)
+                .autoDeleteObjects(true)
+                .build();
     }
 }
